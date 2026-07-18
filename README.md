@@ -2,6 +2,12 @@
 
 App en React Native (Expo SDK 57 + TypeScript) que consume [PokeAPI v2](https://pokeapi.co/docs/v2): lista paginada de 20 en 20 con scroll infinito y pantalla de detalle.
 
+| Android | iOS |
+|---|---|
+| Google Pixel 9 PRO XL | iPhone 17 PRO MAX |
+| <img width="1344" height="2992" alt="Screenshot_20260717_210456" src="https://github.com/user-attachments/assets/0936d497-14fc-4979-ad61-ee428916a679" /> | <img width="1320" height="2868" alt="Simulator Screenshot - iPhone 17 Pro Max - 2026-07-17 at 21 04 53" src="https://github.com/user-attachments/assets/7dc911b6-2914-4cdb-b1ed-55f57225c397" /> |
+| <img width="1344" height="2992" alt="Screenshot_20260717_211045" src="https://github.com/user-attachments/assets/703b21ea-14bb-445f-97ae-9ed8ba8b173c" /> | <img width="1320" height="2868" alt="Simulator Screenshot - iPhone 17 Pro Max - 2026-07-17 at 21 10 49" src="https://github.com/user-attachments/assets/4d6b07b1-76c8-420e-9c53-66e259b3976d" /> |
+
 ## Cómo correrla
 
 ```bash
