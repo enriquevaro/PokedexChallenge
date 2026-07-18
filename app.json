@@ -1,11 +1,17 @@
 {
   "expo": {
-    "name": "pokedex",
+    "name": "Pokédex",
     "slug": "pokedex",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "scheme": "pokedex",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#252428",
+    "plugins": ["expo-router"],
+    "experiments": {
+      "typedRoutes": true
+    },
     "ios": {
       "supportsTablet": true
     },

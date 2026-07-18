@@ -48,16 +48,20 @@ export const PokemonCard = memo(PokemonCardBase);
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    padding: 8,
-  },
-  card: {
+    margin: 6, // spacing between cells
+    padding: 10,
     borderRadius: 16,
     borderWidth: 1,
     borderStyle: 'solid',
     borderColor: '#000000',
+    overflow: 'hidden',
+    backgroundColor: palette.background, // ensure white background inside rounded border
+  },
+  card: {
     paddingTop: 20,
     paddingBottom: 16,
     paddingHorizontal: 12,
+    borderRadius: 14,
   },
   image: {
     width: 140,
@@ -69,6 +73,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '700',
     color: palette.textDark,
-     textAlign: 'center'
+    textAlign: 'center',
   },
 });

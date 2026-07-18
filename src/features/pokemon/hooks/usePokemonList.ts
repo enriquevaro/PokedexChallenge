@@ -1,4 +1,5 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
+import { usePokemonRepositoryFromContext } from '../di/PokemonRepositoryContext';
 import type { PokemonListItem } from '../domain/entities';
 import type { PokemonRepository } from '../domain/PokemonRepository';
 import { pokemonRepository as defaultPokemonRepository } from '../data/pokemonRepositoryImpl';
@@ -16,10 +17,13 @@ export const pokemonKeys = {
  * Caso de uso: listar pokémon con paginación infinita de 20 en 20.
  * TanStack Query gestiona caché, reintentos y estados de carga.
  */
-export function usePokemonList(repo: PokemonRepository = defaultPokemonRepository) {
+export function usePokemonList(repo?: PokemonRepository) {
+  const contextRepo = usePokemonRepositoryFromContext();
+  const effectiveRepo: PokemonRepository = repo ?? contextRepo ?? defaultPokemonRepository;
+
   const query = useInfiniteQuery({
     queryKey: pokemonKeys.list(),
-    queryFn: ({ pageParam }) => repo.getPage(pageParam, PAGE_SIZE),
+    queryFn: ({ pageParam }) => effectiveRepo.getPage(pageParam, PAGE_SIZE),
     initialPageParam: 0,
     getNextPageParam: (lastPage) => lastPage.nextOffset,
   });
