@@ -3,22 +3,34 @@ import { useCallback } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { palette } from '@/shared/theme/colors';
 import type { PokemonListItem } from '../domain/entities';
-import { usePokemonList } from '../hooks/usePokemonList';
+import type { UsePokemonListResult } from '../hooks/usePokemonList';
 import { PokemonCard } from './PokemonCard';
+import { SkeletonTile } from './SkeletonTile';
 
-/** Grilla de 2 columnas con scroll infinito (páginas de 20). */
-export function PokemonGrid() {
-  const { items, isLoading, isError, refetch, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    usePokemonList();
-
+/** Props passed from parent that owns the hook to allow header progress bar control. */
+export function PokemonGrid({
+  items,
+  isLoading,
+  isError,
+  refetch,
+  fetchNextPage,
+  hasNextPage,
+  isFetchingNextPage,
+}: UsePokemonListResult) {
   const onEndReached = useCallback(() => {
     if (hasNextPage && !isFetchingNextPage) fetchNextPage();
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   if (isLoading) {
+    // Render a skeleton grid resembling the cards while the first page loads (2 columns like main grid)
+    const placeholders = new Array(6).fill(null);
     return (
-      <View style={styles.center}>
-        <ActivityIndicator size="large" color={palette.header} />
+      <View style={styles.skeletonGrid}>
+        {placeholders.map((_, i) => (
+          <View key={i} style={styles.skeletonGridColumn}>
+            <SkeletonTile />
+          </View>
+        ))}
       </View>
     );
   }
@@ -45,7 +57,10 @@ export function PokemonGrid() {
       onEndReachedThreshold={0.5}
       ListFooterComponent={
         isFetchingNextPage ? (
-          <ActivityIndicator style={styles.footer} color={palette.header} />
+          <View style={styles.footerSkeletonContainer}>
+            <SkeletonTile />
+            <SkeletonTile />
+          </View>
         ) : null
       }
     />
@@ -55,6 +70,22 @@ export function PokemonGrid() {
 const styles = StyleSheet.create({
   content: {
     padding: 8,
+  },
+  skeletonGrid: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    padding: 8,
+  },
+  skeletonGridColumn: {
+    width: '50%',
+    padding: 8,
+  },
+  footerSkeletonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 8,
+    paddingVertical: 12,
   },
   center: {
     flex: 1,

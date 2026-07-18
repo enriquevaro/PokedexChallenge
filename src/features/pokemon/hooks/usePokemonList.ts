@@ -33,3 +33,5 @@ export function usePokemonList(repo?: PokemonRepository) {
 
   return { ...query, items };
 }
+
+export type UsePokemonListResult = ReturnType<typeof usePokemonList>;
