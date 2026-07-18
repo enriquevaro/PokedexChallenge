@@ -146,6 +146,16 @@ src/
 - `act()` para tests de componentes animados (FlashList, Animated)
 - Context DI en tests: swappear repositorio sin afectar app
 
+Política de tests
+- Todos los tests del proyecto se colocan en src/features/pokemon/__test__/ para mantenerlos visibles y ordenados.
+- Convención de nombres: *.test.ts o *.test.tsx.
+- Tests de utilidades compartidas también se ubican en el mismo folder de tests del feature para este repositorio (consolidado).
+
+Cómo ejecutar
+- Ejecutar todos los tests: `npm test`
+- Ejecutar un test específico: `npm test -- <path/to/test.file>`
+
+
 ### Persistencia
 - Session: React Query caché (default)
 - Permanente entre arranques: `react-native-mmkv` + `@tanstack/query-persist-client`
