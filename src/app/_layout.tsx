@@ -11,7 +11,6 @@ import { pokemonRepository } from '@/features/pokemon/data/pokemonRepositoryImpl
 export default function RootLayout() {
   useEffect(() => {
     let cleanup: (() => void) | undefined;
-    // Restore persisted first page, then start auto-save of the first page
     restorePokemonList(queryClient).then(() => {
       cleanup = setupPokemonListAutoSave(queryClient);
     });
