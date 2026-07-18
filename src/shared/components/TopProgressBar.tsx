@@ -44,7 +44,7 @@ export function TopProgressBar({ visible }: { visible: boolean }) {
   return (
     <View style={styles.container} pointerEvents="none">
       {visible && (
-        <Animated.View style={[styles.bar, { width: widthInterpolated }]} />
+        <Animated.View testID="top-progress-bar" style={[styles.bar, { width: widthInterpolated }]} />
       )}
     </View>
   );
