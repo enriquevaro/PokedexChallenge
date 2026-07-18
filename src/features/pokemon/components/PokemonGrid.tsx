@@ -23,7 +23,7 @@ export function PokemonGrid({
   if (isLoading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator size="large" color={palette.header} />
+        <ActivityIndicator testID="loading-center" size="large" color={palette.header} />
       </View>
     );
   }
@@ -50,7 +50,7 @@ export function PokemonGrid({
       onEndReachedThreshold={0.5}
       ListFooterComponent={
         isFetchingNextPage ? (
-          <ActivityIndicator style={styles.footer} color={palette.header} />
+          <ActivityIndicator testID="loading-footer" style={styles.footer} color={palette.header} />
         ) : null
       }
     />
