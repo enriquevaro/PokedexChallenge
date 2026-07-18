@@ -31,7 +31,9 @@ test('PokemonGrid renders items and footer loader', async () => {
 
   expect(rendered.getByTestId('card-1')).toBeTruthy();
   expect(rendered.getByTestId('card-2')).toBeTruthy();
-  expect(rendered.getByTestId('loading-footer')).toBeTruthy();
+  // now footer skeletons are shown while fetching next page
+  const footerSkeletons = rendered.getAllByTestId('skeleton-tile');
+  expect(footerSkeletons.length).toBeGreaterThanOrEqual(2);
 });
 
 test('PokemonGrid shows center loader when isLoading', async () => {
@@ -50,5 +52,7 @@ test('PokemonGrid shows center loader when isLoading', async () => {
     await new Promise((r) => setTimeout(r, 0));
   });
 
-  expect(rendered.getByTestId('loading-center')).toBeTruthy();
+  // should render skeleton tiles when loading
+  const tiles = rendered.getAllByTestId('skeleton-tile');
+  expect(tiles.length).toBeGreaterThan(0);
 });
