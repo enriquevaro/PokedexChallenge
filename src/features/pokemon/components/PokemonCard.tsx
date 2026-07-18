@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   name: {
     marginTop: 16,
     fontSize: 20,
-    fontWeight: '700',
+    fontWeight: '500',
     color: palette.textDark,
     textAlign: 'center',
   },

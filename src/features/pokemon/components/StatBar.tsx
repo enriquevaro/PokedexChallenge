@@ -41,9 +41,8 @@ const styles = StyleSheet.create({
   track: {
     flex: 1,
     height: 26,
-    borderRadius: 13,
+    borderRadius: 12,
     backgroundColor: palette.trackLight,
-    // Use relative positioning so the fill can be sized absolutely by percent
     position: 'relative',
     overflow: 'hidden',
   },
@@ -52,25 +51,24 @@ const styles = StyleSheet.create({
     left: 0,
     top: 0,
     bottom: 0,
-    borderRadius: 13,
+    borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 8,
   },
   valueInside: {
     color: palette.textPrimary,
-    fontSize: 13,
-    fontWeight: '700',
+    fontSize: 12,
+    fontWeight: '500',
     textAlign: 'center',
-    // Ensure vertical centering on Android by matching lineHeight to track height
     lineHeight: 26,
   },
   valueOutside: {
     position: 'absolute',
     right: 10,
     color: '#3A3A3A',
-    fontSize: 13,
-    fontWeight: '700',
+    fontSize: 12,
+    fontWeight: '500',
     lineHeight: 26,
   },
 });
