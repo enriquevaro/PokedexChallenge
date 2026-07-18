@@ -14,7 +14,7 @@ jest.mock('expo-linear-gradient', () => ({
 
 import { render, act } from '@testing-library/react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { SkeletonDetailScreen } from '../SkeletonDetailScreen';
+import { SkeletonDetailScreen } from '../components/SkeletonDetailScreen';
 
 describe('SkeletonDetailScreen', () => {
   it('renders skeleton loading state without crashing', async () => {
