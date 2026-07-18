@@ -1,49 +1,26 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as SecureStore from 'expo-secure-store';
 import type { QueryClient } from '@tanstack/react-query';
 import { pokemonKeys, PAGE_SIZE } from '@/features/pokemon/hooks/usePokemonList';
 
 const STORAGE_KEY = 'pokedex:pokemon-list-firstpage:v1';
+const toSafeKey = (k: string) => k.replace(/[^A-Za-z0-9._-]/g, '_');
 
 async function storageGetItem(key: string): Promise<string | null> {
-  const toSafeKey = (k: string) => k.replace(/[^A-Za-z0-9._-]/g, '_');
   try {
-    return await AsyncStorage.getItem(key);
-  } catch (e: any) {
-    // AsyncStorage native module may be missing in Expo Go — fallback to SecureStore
-    if (String(e?.message).includes('Native module is null')) {
-      try {
-        return await SecureStore.getItemAsync(toSafeKey(key));
-      } catch (se) {
-        // eslint-disable-next-line no-console
-        console.warn('SecureStore get failed', se);
-        return null;
-      }
-    }
+    return await SecureStore.getItemAsync(toSafeKey(key));
+  } catch (e) {
     // eslint-disable-next-line no-console
-    console.warn('AsyncStorage get failed', e);
+    console.warn('SecureStore get failed', e);
     return null;
   }
 }
 
 async function storageSetItem(key: string, value: string): Promise<void> {
-  const toSafeKey = (k: string) => k.replace(/[^A-Za-z0-9._-]/g, '_');
   try {
-    await AsyncStorage.setItem(key, value);
-    return;
-  } catch (e: any) {
-    if (String(e?.message).includes('Native module is null')) {
-      try {
-        await SecureStore.setItemAsync(toSafeKey(key), value);
-        return;
-      } catch (se) {
-        // eslint-disable-next-line no-console
-        console.warn('SecureStore set failed', se);
-        return;
-      }
-    }
+    await SecureStore.setItemAsync(toSafeKey(key), value);
+  } catch (e) {
     // eslint-disable-next-line no-console
-    console.warn('AsyncStorage set failed', e);
+    console.warn('SecureStore set failed', e);
   }
 }
 
