@@ -3,14 +3,19 @@ import { useCallback } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { palette } from '@/shared/theme/colors';
 import type { PokemonListItem } from '../domain/entities';
-import { usePokemonList } from '../hooks/usePokemonList';
+import type { UsePokemonListResult } from '../hooks/usePokemonList';
 import { PokemonCard } from './PokemonCard';
 
-/** Grilla de 2 columnas con scroll infinito (páginas de 20). */
-export function PokemonGrid() {
-  const { items, isLoading, isError, refetch, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    usePokemonList();
-
+/** Props passed from parent that owns the hook to allow header progress bar control. */
+export function PokemonGrid({
+  items,
+  isLoading,
+  isError,
+  refetch,
+  fetchNextPage,
+  hasNextPage,
+  isFetchingNextPage,
+}: UsePokemonListResult) {
   const onEndReached = useCallback(() => {
     if (hasNextPage && !isFetchingNextPage) fetchNextPage();
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
