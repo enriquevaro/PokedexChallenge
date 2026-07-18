@@ -75,12 +75,12 @@ export default function DetailScreen() {
 
         <View style={styles.measures}>
           <View style={styles.measure}>
-            <Text style={styles.measureValue}>{pokemon.weightKg} KG</Text>
             <Text style={styles.measureLabel}>Peso</Text>
+            <Text style={styles.measureValue}>{pokemon.weightKg} KG</Text>
           </View>
           <View style={styles.measure}>
-            <Text style={styles.measureValue}>{pokemon.heightM} M</Text>
             <Text style={styles.measureLabel}>Altura</Text>
+            <Text style={styles.measureValue}>{pokemon.heightM} M</Text>
           </View>
         </View>
 
