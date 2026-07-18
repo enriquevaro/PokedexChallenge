@@ -3,7 +3,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { PokemonGrid } from '@/features/pokemon/components/PokemonGrid';
 import { palette } from '@/shared/theme/colors';
 import { usePokemonList } from '@/features/pokemon/hooks/usePokemonList';
-import { TopProgressBar } from '@/shared/components/TopProgressBar';
+import { TopProgressBar } from '@/features/pokemon/components/TopProgressBar';
 
 /** Pantalla de lista: ahora posee la lógica de la lista para controlar la barra de progreso en el header. */
 export default function ListScreen() {

@@ -1,7 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
 import {
-  ActivityIndicator,
   Platform,
   Pressable,
   ScrollView,
@@ -14,6 +13,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { PokemonImage } from '@/features/pokemon/components/PokemonImage';
 import { StatBar } from '@/features/pokemon/components/StatBar';
 import { TypeBadge } from '@/features/pokemon/components/TypeBadge';
+import { SkeletonDetailScreen } from '@/features/pokemon/components/SkeletonDetailScreen';
 import { usePokemonDetail } from '@/features/pokemon/hooks/usePokemonDetail';
 import { capitalize, pokedexNumber } from '@/shared/lib/format';
 import { colorForType, palette } from '@/shared/theme/colors';
@@ -24,16 +24,12 @@ export default function DetailScreen() {
   const { data: pokemon, isLoading, isError, refetch } = usePokemonDetail(id);
 
   if (isLoading) {
-    return (
-      <View style={styles.center}>
-        <ActivityIndicator size="large" color={palette.header} />
-      </View>
-    );
+    return <SkeletonDetailScreen />;
   }
 
   if (isError || !pokemon) {
     return (
-      <View style={styles.center}>
+      <View style={styles.errorContainer}>
         <Text style={styles.errorText}>No se pudo cargar el detalle.</Text>
         <Text style={styles.retry} onPress={() => refetch()}>
           Reintentar
@@ -104,7 +100,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: palette.background,
   },
-  center: {
+  errorContainer: {
     flex: 1,
     backgroundColor: palette.background,
     alignItems: 'center',

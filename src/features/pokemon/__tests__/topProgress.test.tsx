@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
 import { act } from 'react-test-renderer';
-import { TopProgressBar } from '@/shared/components/TopProgressBar';
+import { TopProgressBar } from '@/features/pokemon/components/TopProgressBar';
 
 test('TopProgressBar renders when visible', async () => {
   const rendered = await render(<TopProgressBar visible={true} />);

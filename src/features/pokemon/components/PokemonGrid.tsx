@@ -5,7 +5,7 @@ import { palette } from '@/shared/theme/colors';
 import type { PokemonListItem } from '../domain/entities';
 import type { UsePokemonListResult } from '../hooks/usePokemonList';
 import { PokemonCard } from './PokemonCard';
-import { SkeletonTile } from '@/shared/components/SkeletonTile';
+import { SkeletonTile } from './SkeletonTile';
 
 /** Props passed from parent that owns the hook to allow header progress bar control. */
 export function PokemonGrid({
