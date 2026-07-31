@@ -1,11 +1,12 @@
 import { Link } from 'expo-router';
 import { memo } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import {Pressable, StyleSheet, Text, ToastAndroid, View} from 'react-native';
 import { capitalize } from '@/shared/lib/format';
 import { colorForType, palette } from '@/shared/theme/colors';
 import type { PokemonListItem } from '../domain/entities';
 import { usePokemonDetail } from '../hooks/usePokemonDetail';
 import { PokemonImage } from './PokemonImage';
+import {Ionicons} from "@expo/vector-icons";
 
 interface Props {
   pokemon: PokemonListItem;
@@ -35,13 +36,25 @@ function PokemonCardBase({ pokemon }: Props) {
           accessibilityRole="button"
           accessibilityLabel={`Ver detalles de ${pokemon.name}`}
         >
+          <Pressable onPress={() => showToastWithGravity()}>
+            <Ionicons name="heart-outline" size={32} color="black" />
+
+          </Pressable>
+
           <PokemonImage pokemonId={pokemon.id} style={styles.image} />
           <Text style={styles.name}>{capitalize(pokemon.name)}</Text>
         </Pressable>
       </Link>
+
+
+
     </View>
   );
 }
+
+const showToastWithGravity = () => {
+  console.log('showToastWithGravity');
+};
 
 export const PokemonCard = memo(PokemonCardBase);
 

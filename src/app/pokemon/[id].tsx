@@ -5,7 +5,7 @@ import {
   Pressable,
   ScrollView,
   StyleSheet,
-  Text,
+  Text, ToastAndroid,
   View,
 } from 'react-native';
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
@@ -57,6 +57,11 @@ export default function DetailScreen() {
             />
           </Pressable>
           <Text style={styles.heroTitle}>Pokédex</Text>
+
+          <Pressable onPress={() => showToastWithGravity()}>
+            <Ionicons name="heart" size={32} color="white" />
+          </Pressable>
+
           <Text style={styles.number}>{pokedexNumber(pokemon.id)}</Text>
         </View>
         <Animated.View entering={FadeInUp.duration(300)}>
@@ -94,6 +99,10 @@ export default function DetailScreen() {
     </ScrollView>
   );
 }
+
+const showToastWithGravity = () => {
+  console.log('showToastWithGravity');
+};
 
 const styles = StyleSheet.create({
   container: {
