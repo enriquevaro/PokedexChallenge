@@ -7,6 +7,7 @@ import type { PokemonListItem } from '../domain/entities';
 import { usePokemonDetail } from '../hooks/usePokemonDetail';
 import { PokemonImage } from './PokemonImage';
 import {Ionicons} from "@expo/vector-icons";
+import { useFavorites } from "@/features/pokemon/favorites/FavoritesContext";
 
 interface Props {
   pokemon: PokemonListItem;
@@ -24,6 +25,8 @@ interface Props {
 function PokemonCardBase({ pokemon }: Props) {
   const { data } = usePokemonDetail(pokemon.id);
   const backgroundColor = data ? colorForType(data.types[0]) : palette.textDark;
+  const { isFavorite, toggleFavorite } = useFavorites();
+  const favorite = isFavorite(pokemon.id);
 
   return (
     <View style={styles.wrapper}>
@@ -36,18 +39,25 @@ function PokemonCardBase({ pokemon }: Props) {
           accessibilityRole="button"
           accessibilityLabel={`Ver detalles de ${pokemon.name}`}
         >
-          <Pressable onPress={() => showToastWithGravity()}>
-            <Ionicons name="heart-outline" size={32} color="black" />
-
-          </Pressable>
-
           <PokemonImage pokemonId={pokemon.id} style={styles.image} />
           <Text style={styles.name}>{capitalize(pokemon.name)}</Text>
         </Pressable>
       </Link>
-
-
-
+      <Pressable
+          onPress={() => toggleFavorite(pokemon)}
+          hitSlop={8}
+          style={styles.favoriteButton}
+          accessibilityRole="button"
+          accessibilityLabel={
+            favorite ? `Quitar ${pokemon.name} de favoritos` : `Agregar ${pokemon.name} a favoritos`
+          }
+      >
+        <Ionicons
+            name={favorite ? "heart" : "heart-outline"}
+            size={24}
+            color={favorite ? palette.header : palette.textDark}
+        />
+      </Pressable>
     </View>
   );
 }
@@ -87,5 +97,13 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: palette.textDark,
     textAlign: 'center',
+  },
+  favoriteButton: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    backgroundColor: 'rgba(255,255,255,0.8)',
+    borderRadius: 14,
+    padding: 5,
   },
 });

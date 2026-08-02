@@ -19,7 +19,7 @@ export default function ListScreen() {
         <Text style={styles.title}>Pokédex</Text>
 
         <Pressable onPress={() => showToastWithGravity()}>
-          <Ionicons name="heart" size={32} color="black" />
+          <Ionicons name="heart" size={32} color={ palette.textPrimary } />
         </Pressable>
 
         <TopProgressBar visible={loading} />

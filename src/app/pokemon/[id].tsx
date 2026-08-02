@@ -5,7 +5,7 @@ import {
   Pressable,
   ScrollView,
   StyleSheet,
-  Text, ToastAndroid,
+  Text,
   View,
 } from 'react-native';
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
@@ -17,11 +17,13 @@ import { SkeletonDetailScreen } from '@/features/pokemon/components/SkeletonDeta
 import { usePokemonDetail } from '@/features/pokemon/hooks/usePokemonDetail';
 import { capitalize, pokedexNumber } from '@/shared/lib/format';
 import { colorForType, palette } from '@/shared/theme/colors';
+import { useFavorites } from "@/features/pokemon/favorites/FavoritesContext";
 
 export default function DetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const insets = useSafeAreaInsets();
   const { data: pokemon, isLoading, isError, refetch } = usePokemonDetail(id);
+  const { isFavorite, toggleFavorite } = useFavorites();
 
   if (isLoading) {
     return <SkeletonDetailScreen />;
@@ -39,6 +41,7 @@ export default function DetailScreen() {
   }
 
   const heroColor = colorForType(pokemon.types[0]);
+  const favorite = isFavorite(pokemon.id)
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 32 }}>
@@ -57,11 +60,22 @@ export default function DetailScreen() {
             />
           </Pressable>
           <Text style={styles.heroTitle}>Pokédex</Text>
-
-          <Pressable onPress={() => showToastWithGravity()}>
-            <Ionicons name="heart" size={32} color="white" />
+          <Pressable
+              onPress={() =>
+                  toggleFavorite({id: pokemon.id, name: pokemon.name, imageUrl: pokemon.imageUrl })
+              }
+              hitSlop={12}
+              accessibilityRole="button"
+              accessibilityLabel={
+                favorite ? `Quitar ${pokemon.name} de favoritos` : `Agregar ${pokemon.name} a favoritos`
+              }
+          >
+            <Ionicons
+                name={ favorite ? "heart" : "heart-outline" }
+                size={26}
+                color={ favorite ? palette.header : palette.textPrimary }
+            />
           </Pressable>
-
           <Text style={styles.number}>{pokedexNumber(pokemon.id)}</Text>
         </View>
         <Animated.View entering={FadeInUp.duration(300)}>

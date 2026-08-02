@@ -7,6 +7,7 @@ import { restorePokemonList, setupPokemonListAutoSave } from '@/shared/lib/query
 import { palette } from '@/shared/theme/colors';
 import { PokemonRepositoryProvider } from '@/features/pokemon/di/PokemonRepositoryContext';
 import { pokemonRepository } from '@/features/pokemon/data/pokemonRepositoryImpl';
+import { FavoritesProvider } from "@/features/pokemon/favorites/FavoritesContext";
 
 export default function RootLayout() {
   useEffect(() => {
@@ -22,14 +23,16 @@ export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
       <PokemonRepositoryProvider repo={pokemonRepository}>
-        <StatusBar style="light" />
-        <Stack
-          screenOptions={{
-            headerShown: false,
-            contentStyle: { backgroundColor: palette.background },
-            animation: 'slide_from_right',
-          }}
-        />
+          <FavoritesProvider>
+            <StatusBar style="light" />
+            <Stack
+              screenOptions={{
+                headerShown: false,
+                contentStyle: { backgroundColor: palette.background },
+                animation: 'slide_from_right',
+              }}
+            />
+          </FavoritesProvider>
       </PokemonRepositoryProvider>
     </QueryClientProvider>
   );
